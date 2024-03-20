@@ -11,15 +11,16 @@ public class Main {
         interval[1]=7.0;
         double el=0.5;
         int i=0;
-        //double eps=0.2;
         boolean flag=true;
         double Yk;double FYk;double Zk;double FZk;double Delta;
 
-            Yk = interval[0]+(((3-Math.sqrt(5))/2)*(interval[1]-interval[0]));
+        Yk = interval[0]+(((3-Math.sqrt(5))/2)*(interval[1]-interval[0]));
+        FYk = funk(Yk);
+        Zk =interval[0]+interval[1]-Yk;
+        FZk = funk(Zk);
+        while(flag) {
             FYk = funk(Yk);
-            Zk =interval[0]+interval[1]-Yk;
             FZk = funk(Zk);
-            while(flag) {
             if (FYk <= FZk) {
                 interval[1] = Zk;
                 Zk=Yk;
@@ -36,7 +37,7 @@ public class Main {
             }
             i++;
             System.out.println(i);
-            }
+        }
 
     }
 }
