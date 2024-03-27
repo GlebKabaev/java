@@ -1,9 +1,11 @@
 package pack;
 
 public class Ratio {
-   private double[] interval=new  double[2];
-   private boolean flag;
-    private double Yk;private double FYk;private double Zk;private double FZk;private double Delta;private double x;private double el;private int i;
+    private double[] interval=new  double[2];
+    private boolean flag;
+    private double Yk;private double FYk;
+    private double Zk;private double FZk;private double Delta;
+    private double x;private double el;private int i;
     public Ratio(){
         System.out.println("0я итерация");
         interval[0]=-3.0;
@@ -41,6 +43,7 @@ public class Ratio {
             Delta = Math.abs(interval[0] - interval[1]);
             if ( Delta<= el) {
                 flag = false;
+                x=(interval[0]-interval[1])/2;
             }
             System.out.println("a="+interval[0]);
             System.out.println("b="+interval[1]);
@@ -48,6 +51,8 @@ public class Ratio {
             System.out.println("F(Yk)="+FYk);
             System.out.println("Zk="+Zk);
             System.out.println("F(Zk)="+FZk);
+            if(x!=0)
+            System.out.println("x*="+x);
         }
 
     }
