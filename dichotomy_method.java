@@ -29,6 +29,10 @@ public class Main {
                 flag = false;
             }
             i++;
+            System.out.println("Yk="+Yk);
+            System.out.println("Zk="+Zk);
+            System.out.println("F(Yk)="+FYk);
+            System.out.println("F(Zk)"+FZk);
             System.out.println(i);
         }
 
