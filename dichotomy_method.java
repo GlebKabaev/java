@@ -15,6 +15,8 @@ public class Main {
         boolean flag=true;
         double Yk;double FYk;double Zk;double FZk;double L;
         while(flag) {
+            i++;
+            System.out.println(i+"я итерация");
             Yk = (interval[0] + interval[1] - eps) / 2;
             FYk = funk(Yk);
             Zk = (interval[0] + interval[1] + eps) / 2;
@@ -25,16 +27,17 @@ public class Main {
                 interval[0] = Yk;
             }
             L = Math.abs(interval[1] - interval[0]);
-            if (L <= delta) {
-                flag = false;
-            }
-            i++;
             System.out.println("Yk="+Yk);
             System.out.println("Zk="+Zk);
             System.out.println("F(Yk)="+FYk);
             System.out.println("F(Zk)"+FZk);
-            System.out.println(i);
+            if (L <= delta) {
+                flag = false;
+                double rezult= 1 /(Math.pow( 2,i/2));
+                System.out.println("R(N)="+rezult);
+                double x=(interval[0]+interval[1])/2;
+                System.out.println("x*="+x);
+            }
         }
-
     }
 }
