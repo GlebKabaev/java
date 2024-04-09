@@ -3,15 +3,15 @@ package pack;
 import java.util.ArrayList;
 
 public class Fib {
-    double[] numFib={1,1,2,3,5,8,13,21};
+    double[] numFib={1,1,2,3,5,8,13};
     public int n=numFib.length-1;
-    double a=-3;
-    double b=7;
+    double a=0;
+    double b=10;
     int k=0;
     double yk=a+((numFib[n-2]/numFib[n])*(b-a));
     double zk=a+((numFib[n-1]/numFib[n])*(b-a));
     double fyk;
-    double eps=0.2;
+    double eps=0.01;
     double fzk;
     boolean flag=true;
     ArrayList<Double> dataA=new ArrayList<Double>();
@@ -21,47 +21,59 @@ public class Fib {
     ArrayList<Double> dataZk=new ArrayList<Double>();
     double x;
     public  Fib(){
+        dataA.add(a);
+        dataB.add(b);
+        dataYk.add(yk);
+        dataZk.add(zk);
         while (flag){
             System.out.println(k);
-            dataA.add(a);
-            dataB.add(b);
-            dataYk.add(yk);
-            dataZk.add(zk);
             fyk=funk(yk);
             fzk=funk(zk);
+            System.out.println("yk="+yk);
+            System.out.println("zk="+zk);
+            System.out.println("F(yk)="+fyk);
+            System.out.println("F(zk)="+fzk);
             if(fyk<=fzk){
                 b=zk;
+                dataA.add(a);
+                dataB.add(b);
                 zk=yk;
+                dataZk.add(zk);
                 yk=a+((numFib[n-k-3]/numFib[n-k-1])*(b-a));
+                dataYk.add(yk);
             }else {
                 a=yk;
+                dataA.add(a);
+                dataB.add(b);
                 yk=zk;
+                dataYk.add(yk);
                 zk=a+((numFib[n-k-2]/numFib[n-k-1])*(b-a));
-            }
-            if(k!=n-3){
-                k++;
+                dataZk.add(zk);
             }
             if(k==n-3){
                 flag=false;
-                dataYk.set(k-2,(dataA.get(k-2)+dataB.get(k-2))/2);
-                dataZk.set(k-2,dataYk.get(k-2));
-                dataYk.set(k-1,dataYk.get(k-2));
-                dataZk.set(k-1,eps);
-                if((funk(dataYk.get(k-1)))<=funk(dataZk.get(k-1))){
-                    dataA.set(k-1,dataA.get(k-2));
-                    dataB.set(k-1,dataZk.get(k-1));
+                dataYk.add(dataYk.get(n-2));
+                dataZk.add(dataYk.get(n-1)+eps);
+                fyk=funk(dataYk.get(n-1));
+                fzk=funk(dataZk.get(n-1));
+                if(fyk<=fzk){
+                    b=dataZk.get(n-1);
+
                 }else {
-                    dataA.set(k-1,dataYk.get(k-1));
-                    dataB.set(k-1,dataB.get(k-2));
+                    a=dataYk.get(n-1);
                 }
-                x=(dataA.get(k-1)+dataB.get(k-1))/2;
-                System.out.println(x);
+                x=((a+b)/2);
+                System.out.println("x="+x);
+
+            }
+            if(k!=n-3){
+                k++;
             }
         }
     }
 
 
     public double funk(double x){
-        return ((x*x)+2);
+        return ((2*x*x)-(12*x));
     }
 }
