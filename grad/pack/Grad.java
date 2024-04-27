@@ -8,9 +8,14 @@ public class Grad {
     int k=-1;
     public  double[] x=new double[2];
     public  double[] xbef=new double[2];
-    boolean flag=false;
+    boolean flag=true;
     public  double[] deltafx=new double[2];
-    public double funk(double x1,double x2){
+    private double[] interval=new  double[2];
+    private boolean flag2;
+    private double Yk;private double FYk;
+    private double Zk;private double FZk;private double Delta;
+    private double x22;private double el;private int i;double t=0;
+    public double thisfunk(double x1,double x2){
         return (x1*x1)+4*(x2*x2)+(x1*x2)+x1;
     }
     public  double deltafx1(double x1,double x2){
@@ -25,7 +30,63 @@ public class Grad {
     public double normax(double[] arr1, double[] arr2){
         return Math.sqrt(Math.pow(arr1[0]-arr2[0],2)+Math.pow(arr1[1]-arr2[2],2));
     }
+    public  double crnewx(double x,double deltax,double t){
+        return x-(deltax*t);
+    }
+    public double rezult(double x1,double deltafx,double x2,double deltafx2){
+        System.out.println("0я итерация");
+        interval[0]=-3.0;
+        System.out.println("a="+interval[0]);
+        interval[1]=7.0;
+        System.out.println("b="+interval[1]);
+        el=0.5;
+        System.out.println("l="+el);
+        flag2=true;
+        Yk = interval[0]+(((3-Math.sqrt(5))/2)*(interval[1]-interval[0]));
+        System.out.println("Yk="+Yk);
+        FYk = funk(x1,deltafx,x2,deltafx2,Yk);
+        System.out.println("F(Yk)="+FYk);
+        Zk =interval[0]+interval[1]-Yk;
+        System.out.println("Zk="+Zk);
+        FZk = funk(x1,deltafx,x2,deltafx2,Zk);
+        System.out.println("F(Zk)="+FZk);
 
+        while(flag2) {
+            i++;
+            System.out.println(i + "я итерация");
+            FYk = funk(x1,deltafx,x2,deltafx2,Yk);
+            FZk = funk(x1,deltafx,x2,deltafx2,Zk);
+            if (FYk <= FZk) {
+                interval[1] = Zk;
+                Zk = Yk;
+                Yk = interval[0] + interval[1] - Yk;
+            } else if (FYk > FZk) {
+                interval[0] = Yk;
+                Yk = Zk;
+                Zk = interval[0] + interval[1] - Zk;
+            }
+            Delta = Math.abs(interval[0] - interval[1]);
+            if (Delta <= el) {
+                flag2 = false;
+                x22 = (interval[0] - interval[1]) / 2;
+            }
+            System.out.println("a=" + interval[0]);
+            System.out.println("b=" + interval[1]);
+            System.out.println("Yk=" + Yk);
+            System.out.println("F(Yk)=" + FYk);
+            System.out.println("Zk=" + Zk);
+            System.out.println("F(Zk)=" + FZk);
+            if (x22 != 0) {
+                System.out.println("x*=" + x22);
+                return x22;
+            }
+        }
+
+        return 0;
+    }
+    private double funk(double x,double deltax,double x2,double deltax2,double x22){
+        return Math.pow(x-deltax*x22,2)+4*Math.pow(x2-deltax2*x22,2)+(x-deltax*x22)*(x2-deltax2*x22)+(x-deltax*x22) ;
+    }
     public Grad(){
         k++;
         xnow[0]=3;
@@ -39,6 +100,14 @@ public class Grad {
                 flag=false;
                 break;
             }
+           t=rezult(xnow[0],deltafx[0],xnow[1],deltafx[1]);
+            xbef[0]=xnow[0];
+            xbef[1]=xnow[0];
+            xnow[0]=crnewx(xbef[0],deltafx[0],t);
+            xnow[1]=crnewx(xbef[1],deltafx[1],t);
+            System.out.println(xnow[0]+" "+xnow[1]);
+            flag=false;
+
 
         }
     }
