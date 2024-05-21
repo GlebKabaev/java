@@ -19,7 +19,7 @@ public class Flatcher_Rivs {
     private double x22;private double el;private int i;double t=0.14;double beta;
     public double thisfunk(double x1,double x2){
         return (x1*x1)+4*(x2*x2)+(x1*x2)+x1;
-        //return  2*(x1*x1)+(x1*x2)+(x2*x2);
+
     }
     public  double deltafx1(double x1,double x2){
         return (4*x1)+x2;
@@ -87,7 +87,7 @@ public class Flatcher_Rivs {
         return Math.pow(x+(d*x22),2)+4*Math.pow(x2+(d2*x22),2)+(x+(d*x22))*(x2+(d2*x22))+(x+(d*x22)) ;
 
     }
-    Flatcher_Rivs(){
+    public void rivs(){
         k++;
         xnow[0]=3;
         xnow[1]=1;
@@ -100,6 +100,7 @@ public class Flatcher_Rivs {
                 x[1]=xnow[1];
                 flag=false;
                 System.out.println("расчет окончен по условию eps1>norma(delta f(x)) c результатом"+x[0]+" "+x[1]);
+                System.out.println("f(x*)= "+thisfunk(x[0],x[1]));
                 break;
             }
             if(k>=m){
@@ -107,6 +108,7 @@ public class Flatcher_Rivs {
                 x[1]=xnow[1];
                 flag=false;
                 System.out.println("расчет окончен по условию k>=m c результатом "+x[0]+" "+x[1]);
+                System.out.println("f(x*)= "+thisfunk(x[0],x[1]));
                 break;
             }
             if(k==0){
@@ -136,6 +138,7 @@ public class Flatcher_Rivs {
                 x[1]=xnow[1];
                 flag=false;
                 System.out.println("расчет окончен по норме разности x <eps2 и модуль разности функций <eps2 c результатом "+x[0]+" "+x[1]);
+                System.out.println("f(x*)= "+thisfunk(x[0],x[1]));
                 break;
             }
             k++;
